@@ -8,8 +8,7 @@ const isAdmin = async (req, res, next) => {
             return res.status(403).send("token is missing")
         }
         const decode = jwt.verify(token, process.env.JWT_SECRET)
-        req.id = decode.id
-
+        req.id = decode._id
         const admin = await Admin.findById(req.id)
         if (!admin) {
             return res.status(404).json({

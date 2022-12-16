@@ -25,16 +25,27 @@ userRouter.post('/signup', async (req, res) => {
 
     if (req.files) {
         let imageObj = {}
+        console.log('second condition approve')
+
 
         const result = await cloudinary.v2.uploader.upload(req.files.photo.tempFilePath, {
             folder: 'Producto'
         })
-        imageObj = {
-            secure_id: result.public_id,
-            secure_url: result.secure_url
-        }
-        const encPass = await encPassword(password)
 
+        if (!result) {
+            return res.status(400).json({
+                success: false,
+                message: 'Problem in image uploading'
+            })
+        }
+        else {
+            imageObj = {
+                secure_id: result.public_id,
+                secure_url: result.secure_url
+            }
+        }
+
+        const encPass = await encPassword(password)
 
         req.body.password = encPass
         req.body.photo = imageObj

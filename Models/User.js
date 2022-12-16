@@ -25,7 +25,10 @@ const userSchema = new mongoose.Schema({
         contactNumber: {
             type: Number,
             default: 000 - 000 - 0000
-
+        },
+        pincode: {
+            type: Number,
+            default: 000000
         }
 
     },

@@ -8,9 +8,44 @@ productRouter.get('/', (req, res) => {
     res.send('productRouter')
 })
 
+
+
+// productRouter.get('/filterproduct', async (req, res) => {
+//     try {
+//         let query;
+
+//         const reqQuery = { ...req.query }
+
+//         const removeFields = ["sort"]
+//         removeFields.forEach((val) => delete reqQuery[val])
+
+//         let queryStr = JSON.stringify(reqQuery)
+
+//         queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`)
+//         console.log(JSON.parse(queryStr))
+//         const products = await Product.find(JSON.parse(queryStr))
+
+//         if(req.query.sort){
+//             const sortByArr = req.query
+//         }
+
+//         res.status(200).json({
+//             success: true,
+//             products
+//         })
+//     } catch (error) {
+//         res.status(500).json({
+//             success: false,
+//             message: "Internal Server Error",
+//             error: error.message
+//         })
+//         console.log(error)
+//     }
+// })
+
 productRouter.get('/allproduct', async (req, res) => {
     try {
-        const products = await Product.find(req.query ? req.query : {})
+        const products = await Product.find()
         if (!products) {
             return res.status(404).json({
                 success: false,
